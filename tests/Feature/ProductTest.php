@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+
 test('admin can create product', function () {
 
     $user = User::factory()->create(['role' => 'admin']);
@@ -8,13 +10,12 @@ test('admin can create product', function () {
         'name' => 'Produit test',
         'description' => 'test',
         'price' => 10,
-        'stock' => 5
+        'stock' => 5,
     ]);
 
     $response->assertRedirect();
 
     $this->assertDatabaseHas('products', [
-        'name' => 'Produit test'
+        'name' => 'Produit test',
     ]);
-
 });
