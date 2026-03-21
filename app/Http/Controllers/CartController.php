@@ -27,7 +27,18 @@ class CartController extends Controller
             $qty = 1;
         }
 
+        if ($product->stock <= 0) {
+            return redirect()->route('products.index')->with('error', 'Produit en rupture de stock');
+        }
+
         $cart = session()->get('cart', []);
+
+        $currentQty = isset($cart[$product->id]) ? $cart[$product->id]['quantity'] : 0;
+        $newQty = $currentQty + $qty;
+
+        if ($newQty > $product->stock) {
+            return redirect()->route('products.index')->with('error', 'Quantité demandée supérieure au stock disponible');
+        }
 
         if (isset($cart[$product->id])) {
             $cart[$product->id]['quantity'] += $qty;
