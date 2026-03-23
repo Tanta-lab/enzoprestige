@@ -16,7 +16,7 @@
             </ul>
         @endif
 
-        <form action="{{ route('admin.products.store') }}" method="POST">
+        <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data" >
             @csrf
 
             <div>
@@ -50,6 +50,11 @@
                 @empty
                     <p>Aucune catégorie. Crée-en d’abord.</p>
                 @endforelse
+            </div>
+
+            <div style="margin-top: 10px;">
+                <label>Images du produit</label>
+                <input type="file" name="images[]" multiple accept="image/*">
             </div>
 
             <button type="submit">Enregistrer</button>

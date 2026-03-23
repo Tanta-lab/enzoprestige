@@ -13,7 +13,7 @@ class ProductCatalogController extends Controller
         $search = $request->input('search');
         $categoryId = $request->input('category');
 
-        $products = Product::with('categories')
+        $products = Product::with(['categories', 'images'])
             ->when($search, function ($query) use ($search) {
                 $query->where(function ($q) use ($search) {
                     $q->where('name', 'like', '%' . $search . '%')
@@ -31,5 +31,12 @@ class ProductCatalogController extends Controller
         $categories = Category::orderBy('name')->get();
 
         return view('products.index', compact('products', 'categories', 'search', 'categoryId'));
+    }
+
+    public function show(Product $product)
+    {
+        $product->load(['categories', 'images']);
+
+        return view('products.show', compact('product'));
     }
 }

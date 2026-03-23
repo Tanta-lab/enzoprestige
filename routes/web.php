@@ -44,6 +44,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
 Route::get('/products', [ProductCatalogController::class, 'index'])->name('products.index');
 
+Route::get('/products/{product}', [ProductCatalogController::class, 'show'])->name('products.show');
+
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 
 Route::middleware('auth')->group(function () {

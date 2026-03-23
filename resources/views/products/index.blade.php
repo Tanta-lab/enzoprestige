@@ -41,15 +41,33 @@
                 @foreach($products as $product)
                     <div style="border: 1px solid #ddd; border-radius: 10px; padding: 15px; background: #fff;">
 
-                        @if($product->image)
-                            <img src="{{ $product->image }}" alt="{{ $product->name }}" style="width: 100%; height: 220px; object-fit: cover; border-radius: 8px; margin-bottom: 12px;">
+                        @if($product->images->count())
+                            <a href="{{ route('products.show', $product) }}">
+                                <img
+                                    src="{{ asset('storage/' . $product->images->first()->path) }}"
+                                    alt="{{ $product->name }}"
+                                    style="width: 100%; height: 220px; object-fit: cover; border-radius: 8px; margin-bottom: 12px;"
+                                >
+                            </a>
+                        @elseif($product->image)
+                            <a href="{{ route('products.show', $product) }}">
+                                <img
+                                    src="{{ $product->image }}"
+                                    alt="{{ $product->name }}"
+                                    style="width: 100%; height: 220px; object-fit: cover; border-radius: 8px; margin-bottom: 12px;"
+                                >
+                            </a>
                         @else
-                            <div style="width: 100%; height: 220px; background: #f3f3f3; display: flex; align-items: center; justify-content: center; border-radius: 8px; margin-bottom: 12px;">
-                                <span>Pas d’image</span>
-                            </div>
+                            <a href="{{ route('products.show', $product) }}" style="text-decoration: none; color: inherit;">
+                                <div style="width: 100%; height: 220px; background: #f3f3f3; display: flex; align-items: center; justify-content: center; border-radius: 8px; margin-bottom: 12px;">
+                                    <span>Pas d’image</span>
+                                </div>
+                            </a>
                         @endif
 
-                        <h3 style="margin-bottom: 8px;">{{ $product->name }}</h3>
+                        <a href="{{ route('products.show', $product) }}" style="text-decoration: none; color: inherit;">
+                            <h3 style="margin-bottom: 8px;">{{ $product->name }}</h3>
+                        </a>
 
                         <p style="margin-bottom: 8px;">
                             {{ \Illuminate\Support\Str::limit($product->description, 100) }}
@@ -82,6 +100,7 @@
                                 <a href="{{ route('login') }}">Connectez-vous</a> pour ajouter au panier
                             </p>
                         @endauth
+
                     </div>
                 @endforeach
             </div>

@@ -16,7 +16,7 @@
             </ul>
         @endif
 
-        <form action="{{ route('admin.products.update', $product) }}" method="POST">
+        <form action="{{ route('admin.products.update', $product) }}" method="POST" enctype="multipart/form-data" >
             @csrf
             @method('PUT')
 
@@ -55,7 +55,20 @@
                     </label>
                 @endforeach
             </div>
-            
+
+            <div style="margin-top: 10px;">
+                <label>Ajouter de nouvelles images</label>
+                <input type="file" name="images[]" multiple accept="image/*">
+            </div>
+
+            @if($product->images->count())
+                <div style="margin-top: 15px; display:flex; gap:10px; flex-wrap:wrap;">
+                    @foreach($product->images as $image)
+                        <img src="{{ asset('storage/' . $image->path) }}" alt="{{ $product->name }}" style="width:100px; height:100px; object-fit:cover; border-radius:8px;">
+                    @endforeach
+                </div>
+            @endif
+
             <button type="submit">Mettre à jour</button>
         </form>
     </div>
