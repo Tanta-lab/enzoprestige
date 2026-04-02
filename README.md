@@ -48,3 +48,5 @@ Créer un compte via le site
 	•	Authentification
 	•	Admin CRUD produits / catégories
 
+<img width="340" height="151" alt="Capture d’écran 2026-01-06 à 12 59 27" src="https://github.com/user-attachments/assets/8877864a-0b79-4102-8cec-f6f350177235" />
+
